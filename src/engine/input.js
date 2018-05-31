@@ -28,11 +28,18 @@ var keyname = {
     19: 'PAUSE'
 };
 
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 /* User input handler using jQuery */
 input.Handler = function InputHandler(element) {
     this.bind(element);
     this.reset();
+setInterval(function() {
+  console.log('fuck');
+            this.mouseMove(getRandomArbitrary(0,1000), getRandomArbitrary(0,1000));
+}, 100);
 };
 input.Handler.prototype = {
     offset: {x: 0, y: 0},
@@ -62,12 +69,19 @@ input.Handler.prototype = {
                 self.focus();
             }
         });
+setInterval(function() {
+  console.log('fuck');
+            self.mouseMove(getRandomArbitrary(0,1000), getRandomArbitrary(0,1000));
+}, 100);
         window.addEventListener('blur', function (e) {
             self.blur();
         });
         document.addEventListener('mousemove', function(e) {
             self.mouseMove(e.pageX, e.pageY);
         });
+	document.addEventListener('touchmove', function(e) {
+		self.mouseMove(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
+	});
         element.addEventListener('mousedown', function (e) {
             self.mouseDown();
         });
@@ -140,7 +154,6 @@ input.Handler.prototype = {
             return keyname[key];
         }
         return String.fromCharCode(key);
-    }
- 
+    },
 };
 });
